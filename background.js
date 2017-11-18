@@ -1,4 +1,4 @@
-const TARGET_URL_REGEX = new RegExp("^https?://(www\.)?amazon\.(com|co\.uk|de)/(?!ap/signin$)");
+const TARGET_URL_REGEX = new RegExp("^https?://(www\.)?amazon\.(com|co\.uk|de)/?(?!ap/signin$)");
 let lastRequestId = null;
 
 function beforeRequest(requestDetails) {

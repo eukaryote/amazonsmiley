@@ -5,6 +5,8 @@ A Firefox extension that automatically loads Amazon Smile (using HTTPS)
 when you navigate to an Amazon page, in order to donate a portion of your
 purchase to the charity of your choice.
 
+https://addons.mozilla.org/en-US/firefox/addon/amazon-smiley/
+
 This extension works with Firefox Quantum, and supports amazon.com,
 amazon.co.uk, and amazon.de, which are the only three Amazon country
 sites that support Smile as of November 2017.

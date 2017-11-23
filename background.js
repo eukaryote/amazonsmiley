@@ -1,11 +1,19 @@
-const TARGET_URL_REGEX = new RegExp("^https?://(www\.)?amazon\.(com|co\.uk|de)/?(?!ap/signin$)");
+/* Only the US, UK and German Amazon sites support Smile currently. */
+const NON_SMILE_AMAZON = new RegExp("^https?://(www\.)?amazon\.(com|co\.uk|de)/?(?!ap/signin$)");
+
+/* Track id of the last request we redirected for in order to avoid redirect loops. */
+let lastRequestId;
+
 
 function beforeRequest(requestDetails) {
-  if (requestDetails.type === 'main_frame' && requestDetails.method === 'GET') {
-    const newUrl = requestDetails.url.replace(TARGET_URL_REGEX, "https://smile.amazon.$2/");
-    if (newUrl !== requestDetails.url) {
-      return {redirectUrl: newUrl};
-    }
+  const currentUrl = requestDetails.url,
+        currentRequestId = requestDetails.requestId;
+  if (currentRequestId !== lastRequestId) {
+      const newUrl = currentUrl.replace(NON_SMILE_AMAZON, "https://smile.amazon.$2/");
+      if (newUrl !== currentUrl) {
+          lastRequestId = currentRequestId;
+          return {redirectUrl: newUrl};
+      }
   }
 }
 

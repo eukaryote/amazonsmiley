@@ -1,6 +1,19 @@
 Changelog
 =========
 
+Version 1.3
+-----------
+
+Don't redirect if we just did a redirect for the current request,
+because it's probably Amazon sending a non-logged in user away
+from Smile.
+
+
+Version 1.2
+-----------
+
+Removed seemingly unnecessary logic to prevent redirect loops.
+
 
 Version 1.1
 -----------

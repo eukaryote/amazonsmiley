@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 1.4
+-----------
+
+Avoid redirecting for special Amazon URLs that don't handle the smile redirect nicely.
+
+
 Version 1.3
 -----------
 

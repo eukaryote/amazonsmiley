@@ -1,12 +1,19 @@
 /**
- * Background javascript, which runs once upon extension load and has access
- * to a background page that FF will autogenerate (since we don't supply one).
+ * Background javascript that runs once when the extension is initially
+ * loaded and has access to a persistent background page.
  *
- * We just register an onBeforeRequest listener that checks the URL to be
- * loaded and redirects to the smile equivalent if needed.
+ * We just register an onBeforeRequest listener that checks the URL of each
+ * request to any of the supported Amazon targets and redirects triggers
+ * an intenral redirect to the equivalent smile URL if needed.
  */
 
- (function(browser) {
+ (function(chrome) {
+  // We're using the 'chrome' global to get a reference to the browser
+  // object that exposes the web-extensions API. This works for both
+  // Chrome and Firefox (unlike the 'browser' global provided by Firefox
+  // but not Chrome) and provides Chrome's callback-based API in both cases
+  // (i.e., not the promise-based API that Firefox exposes via 'browser'
+  // and that is described in the MDN docs).
 
   /* Base regex (scheme plus hostname) for URLs to be checked. */
   const BASE_URL = "https?://(www\\.)?amazon\.(com|co\\.uk|de)";
@@ -68,7 +75,7 @@
     }
   }
 
-  browser.webRequest.onBeforeRequest.addListener(
+  chrome.webRequest.onBeforeRequest.addListener(
     beforeRequest,
     {
       urls: [
@@ -84,4 +91,4 @@
     ["blocking"]
   );
 
- } (browser));
+ } (chrome));

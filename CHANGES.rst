@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 1.5
+-----------
+
+Works with Chrome now (as well as Firefox).
+
+
 Version 1.4
 -----------
 

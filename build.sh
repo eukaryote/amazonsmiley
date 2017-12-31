@@ -6,6 +6,7 @@ IGNORE=(
     *.rst
     *.sh
     *test*
+    LICENSE
 )
 
 [[ -d web-ext-artifacts ]] && find web-ext-artifacts -delete

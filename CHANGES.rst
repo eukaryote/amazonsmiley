@@ -1,6 +1,13 @@
 Changelog
 =========
 
+Version 1.8
+-----------
+
+Fix for Chrome, which doesn't allow a Promise to be returned from an
+`onBeforeRequest` handler.
+
+
 Version 1.7
 -----------
 

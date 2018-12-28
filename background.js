@@ -53,26 +53,43 @@
   /* Regex object for full URL, with negative lookaheads for exclusions. */
   const SMILE_URL_REGEX = new RegExp(BASE_URL + EXCLUSIONS.map(str => '(?!' + str + ')').join(''));
 
+
+  /* map from tabId to whether that tab is incognito. */
+  let tabState = {};
+
+  /* Get incognito state for all existing tabs: */
+  browser.tabs.query({}).then(function(results) {
+    results.forEach(function(tab) {
+      tabState[tab.id] = tab.incognito;
+    });
+  });
+
+  /* Update cognito state on tab change: */
+  browser.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+    tabState[tab.id] = tab.incognito;
+  });
+  /* Remove tab info on tab removal: */
+  browser.tabs.onRemoved.addListener(function(tabId) { delete tabState[tabId]; });
+
   /* Request ID of last request we redirected for, used to avoid redirect loops. */
   let lastRequestId;
 
+  /* Whether to disable in private mode, which can be updated through messaging: */
   let disableInPrivateMode = false;
 
   function beforeRequest(requestDetails) {
-    return browser.tabs.get(requestDetails.tabId).then(function(tab) {
-      if (!disableInPrivateMode || !tab.incognito) {
-        const currentUrl = requestDetails.url,
-          currentRequestId = requestDetails.requestId;
+    if (!disableInPrivateMode || !tabState[requestDetails.tabId]) {
+      const currentUrl = requestDetails.url,
+        currentRequestId = requestDetails.requestId;
 
-        if (currentRequestId !== lastRequestId) {
-          const newUrl = currentUrl.replace(SMILE_URL_REGEX, "https://smile.amazon.$2");
-          if (newUrl !== currentUrl) {
-            lastRequestId = currentRequestId;
-            return { redirectUrl: newUrl };
-          }
+      if (currentRequestId !== lastRequestId) {
+        const newUrl = currentUrl.replace(SMILE_URL_REGEX, "https://smile.amazon.$2");
+        if (newUrl !== currentUrl) {
+          lastRequestId = currentRequestId;
+          return { redirectUrl: newUrl };
         }
       }
-    });
+    }
   }
 
   browser.webRequest.onBeforeRequest.addListener(

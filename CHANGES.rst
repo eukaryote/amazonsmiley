@@ -1,6 +1,13 @@
 Changelog
 =========
 
+Version 1.6
+-----------
+
+Added a configuration option to support not redirecting to Smile in
+a Private/Incognito-mode window or tab.
+
+
 Version 1.5
 -----------
 

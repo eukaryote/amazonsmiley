@@ -4,16 +4,12 @@
  *
  * We just register an onBeforeRequest listener that checks the URL of each
  * request to any of the supported Amazon targets and redirects triggers
- * an intenral redirect to the equivalent smile URL if needed.
+ * an internal redirect to the equivalent smile URL if needed.
  */
 
- (function(chrome) {
-  // We're using the 'chrome' global to get a reference to the browser
-  // object that exposes the web-extensions API. This works for both
-  // Chrome and Firefox (unlike the 'browser' global provided by Firefox
-  // but not Chrome) and provides Chrome's callback-based API in both cases
-  // (i.e., not the promise-based API that Firefox exposes via 'browser'
-  // and that is described in the MDN docs).
+(function(browser) {
+  // Using the 'browser' global and the FF promise-style API, which needs
+  // the mozilla browser polyfill to work under Chrome.
 
   /* Base regex (scheme plus hostname) for URLs to be checked. */
   const BASE_URL = "https?://(www\\.)?amazon\.(com|co\\.uk|de)";
@@ -48,6 +44,7 @@
     '/gp/video/watchlist',
     '/gp/wishlist/universal',
     '/gp/yourstore',
+    '/myh/manage',
     '/local/ajax/',
     '/wishlist/get-button',
     '/wishlist/universal'
@@ -59,23 +56,26 @@
   /* Request ID of last request we redirected for, used to avoid redirect loops. */
   let lastRequestId;
 
+  let disableInPrivateMode = false;
+
   function beforeRequest(requestDetails) {
-    const currentUrl = requestDetails.url,
+    return browser.tabs.get(requestDetails.tabId).then(function(tab) {
+      if (!disableInPrivateMode || !tab.incognito) {
+        const currentUrl = requestDetails.url,
           currentRequestId = requestDetails.requestId;
 
-    // console.debug('1', {currentRequestId: currentRequestId, lastRequestId: lastRequestId, currentUrl: currentUrl});
-    if (currentRequestId !== lastRequestId) {
-      const newUrl = currentUrl.replace(SMILE_URL_REGEX, "https://smile.amazon.$2");
-    //   console.debug('2', {newUrl: newUrl, currentUrl: currentUrl, equal: newUrl === currentUrl});
-      if (newUrl !== currentUrl) {
-          lastRequestId = currentRequestId;
-        //   console.debug('3', {redirectUrl: newUrl});
-          return {redirectUrl: newUrl};
+        if (currentRequestId !== lastRequestId) {
+          const newUrl = currentUrl.replace(SMILE_URL_REGEX, "https://smile.amazon.$2");
+          if (newUrl !== currentUrl) {
+            lastRequestId = currentRequestId;
+            return { redirectUrl: newUrl };
+          }
+        }
       }
-    }
+    });
   }
 
-  chrome.webRequest.onBeforeRequest.addListener(
+  browser.webRequest.onBeforeRequest.addListener(
     beforeRequest,
     {
       urls: [
@@ -91,4 +91,16 @@
     ["blocking"]
   );
 
- } (chrome));
+  browser.runtime.onMessage.addListener(function(message) {
+    if (message) {
+      disableInPrivateMode = message.disableInPrivateMode;
+    }
+  });
+
+  browser.storage.local.get("disableInPrivateMode").then(function(item) {
+    if (item) {
+      disableInPrivateMode = !!item.disableInPrivateMode;
+    }
+  });
+
+}(browser));

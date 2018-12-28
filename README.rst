@@ -24,8 +24,8 @@ For Chrome, you can download this repo, and in Chrome, on the
 at the top and then choose 'Load unpacked extension...' and
 select the base directory of this repo to load the extension.
 
-There are no configuration options, and the extension asks for only
-the minimum privileges needed to redirect requests.
+The extension asks for only the minimum privileges needed to redirect
+requests.
 
 Feedback and suggestions for improvement are welcome. This is my first
 browser extension.

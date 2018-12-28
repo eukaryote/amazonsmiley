@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Amazon Smiley",
   "short_name": "AmznSmiley",
-  "version": "1.6",
+  "version": "1.7",
   "description": "Automatically load Amazon Smile (using HTTPS) when you navigate to an Amazon page, in order to donate a portion of your purchase to the charity of your choice. This extension works with Firefox Quantum, and supports amazon.com, amazon.co.uk, and amazon.de, which are the only three Amazon country sites that support Smile as of November 2017. The extension asks for only the minimum privileges that are required to redirect requests. The code is open-source and may be viewed at the homepage URL (on GitHub).",
   "homepage_url": "https://github.com/eukaryote/amazonsmiley",
   "permissions": [

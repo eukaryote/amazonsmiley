@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 1.7
+-----------
+
+Updated description. No code changes.
+
+
 Version 1.6
 -----------
 

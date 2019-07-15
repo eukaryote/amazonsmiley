@@ -11,4 +11,4 @@ IGNORE=(
 
 [[ -d web-ext-artifacts ]] && find web-ext-artifacts -delete
 
-web-ext build --ignore-files "${IGNORE[@]}"
+web-ext build --ignore-files "${IGNORE[*]}"

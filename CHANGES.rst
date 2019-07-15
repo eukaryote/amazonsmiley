@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 1.9
+-----------
+
+Added an icon. No code changes.
+
+
 Version 1.8
 -----------
 

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg3787"
+   version="1.1"
+   viewBox="0 0 513 512"
+   height="48"
+   width="48">
+  <metadata
+     id="metadata3793">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>amazon_smiley_icon</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs3791" />
+  <title
+     id="title3773">amazon_smiley_icon</title>
+  <rect
+     style="fill:#f79b00"
+     y="0"
+     id="rect3775"
+     height="512"
+     width="512"
+     x="1" />
+  <rect
+     style="fill:#232f3e"
+     y="0"
+     x="0"
+     id="rect3777"
+     height="204"
+     width="512" />
+  <circle
+     style="fill:#232f3e"
+     id="circle3779"
+     r="27.834999"
+     cy="285.48599"
+     cx="196.035" />
+  <circle
+     style="fill:#232f3e"
+     id="circle3781"
+     r="27.834999"
+     cy="285.48599"
+     cx="353.302" />
+  <polygon
+     style="fill:#ffffff"
+     id="polygon3783"
+     points="201.662,177 125.656,27 42,27 42,54 108.848,54 184.854,204 372.903,204 453.47,45 422.825,45 355.939,177 " />
+  <path
+     style="fill:#232f3e"
+     id="path3785"
+     d="m 274.664,432 h -0.762 a 109.293,109.293 0 0 1 -98.086,-63.436 l 18.169,-8.361 A 89.214,89.214 0 0 0 274.043,412 c 0.206,0 0.416,0 0.622,0 a 89.034,89.034 0 0 0 80.687,-51.8 l 18.168,8.361 A 109.076,109.076 0 0 1 274.664,432 Z" />
+</svg>
